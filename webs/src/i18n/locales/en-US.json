@@ -3410,6 +3410,28 @@
       "title": "{{category}} base template configuration",
       "description": "The base template is the default configuration auto-filled during rule conversion when template content is empty. Changes affect all rule conversion operations that use the default template."
     },
+    "profile": {
+      "title": "Visual Mihomo configuration",
+      "invalid": "Fix the configuration in the YAML editor to use visual editing.",
+      "dns": "Enable DNS",
+      "tun": "Enable TUN",
+      "groups": "Proxy groups",
+      "selectedGroup": "Select a proxy group",
+      "addGroup": "Add proxy group",
+      "newGroupName": "Proxy group {{index}}",
+      "groupName": "Name",
+      "groupType": "Type",
+      "filter": "Node filter regex",
+      "members": "Fixed members, one per line",
+      "includeProxies": "Include subscription nodes",
+      "rules": "Routing rules",
+      "selectedRule": "Select a rule",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "removeRule": "Remove rule",
+      "newRule": "New rule, e.g. DOMAIN-SUFFIX,example.com,DIRECT",
+      "addRule": "Add rule"
+    },
     "messages": {
       "loadFailed": "Failed to load template list",
       "usageFailed": "Failed to load template usage",
@@ -3808,6 +3830,7 @@
       "clientType": "Client type",
       "returnNodes": "Return the modified node list",
       "modifySubscription": "Modify subscription content",
+      "mihomoOverride": "Clash/Mihomo accepts main(config) overrides. Paste the complete script and select it in your subscription.",
       "input": "Original subscription content",
       "returnContent": "Return the modified subscription content"
     }

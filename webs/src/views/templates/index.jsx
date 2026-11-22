@@ -72,6 +72,7 @@ import useResolvedColorScheme from 'hooks/useResolvedColorScheme';
 
 // Monaco Editor
 import Editor, { DiffEditor } from '@monaco-editor/react';
+import MihomoProfileEditor from './MihomoProfileEditor';
 
 const createEmptyTemplateAIAssistant = () => ({
   sessionId: '',
@@ -326,6 +327,7 @@ export default function TemplateList() {
   const [aclPresets, setAclPresets] = useState([]);
   const [converting, setConverting] = useState(false);
   const [editorFullscreen, setEditorFullscreen] = useState(false);
+  const [profileEditorOpen, setProfileEditorOpen] = useState(false);
   const [templateEditorMode, setTemplateEditorMode] = useState('edit');
   const [aiPrompt, setAIPrompt] = useState('');
   const [aiGenerating, setAIGenerating] = useState(false);
@@ -446,6 +448,7 @@ export default function TemplateList() {
     setUseProxy(false);
     setProxyLink('');
     setEditorFullscreen(false);
+    setProfileEditorOpen(false);
     resetTemplateAIAssistant();
     setDialogOpen(true);
   };
@@ -454,6 +457,7 @@ export default function TemplateList() {
     setIsEdit(true);
     setCurrentTemplate(template);
     setEditorFullscreen(false);
+    setProfileEditorOpen(false);
     setFormData({
       filename: template.file,
       text: template.text,
@@ -1973,6 +1977,22 @@ export default function TemplateList() {
                     {t('templates.actions.clearContent')}
                   </Button>
                 </Stack>
+                {formData.category === 'clash' && (
+                  <Stack spacing={1.5}>
+                    <Button
+                      variant="outlined"
+                      sx={{ alignSelf: 'flex-start' }}
+                      aria-expanded={profileEditorOpen}
+                      disabled={showDiffReview}
+                      onClick={() => setProfileEditorOpen((open) => !open)}
+                    >
+                      {t('templates.profile.title')}
+                    </Button>
+                    {profileEditorOpen && !showDiffReview && (
+                      <MihomoProfileEditor text={formData.text} onChange={(text) => setFormData((current) => ({ ...current, text }))} />
+                    )}
+                  </Stack>
+                )}
                 <Box
                   sx={{
                     ...aiWorkspacePanelSx,

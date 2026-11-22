@@ -1,0 +1,18 @@
+[Unit]
+Description=Discover public OpenSubLink subscription URLs
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+DynamicUser=yes
+StateDirectory=opensublink-discovery
+StateDirectoryMode=0700
+EnvironmentFile=-/etc/opensublink-discovery.env
+ExecStart=/usr/bin/python3 /usr/local/lib/opensublink/public_subscription_discovery.py --output /var/lib/opensublink-discovery/public-subscriptions.txt
+TimeoutStartSec=6min
+SuccessExitStatus=2
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict

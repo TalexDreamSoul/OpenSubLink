@@ -64,6 +64,8 @@
 | 🔗 **链式代理** | Dialer-Proxy 原生支持、可视化配置、支持按 IP 质量选节点 | [📖](docs/features/chain-proxy.zh-CN.md) |
 | 🤖 **AI 模板编辑** | 用自然语言生成操作式预览，审阅只读对比，接受到编辑器后再正常保存 | [📖](docs/features/template-ai.zh-CN.md) |
 | ✈️ **机场管理** | 多格式导入、定时更新、流量监控、节点测试概览、一键全量拉取 | [📖](docs/features/airport.zh-CN.md) |
+| **Mihomo 配置编辑** | 在模板中编辑 DNS、TUN、代理组和规则顺序，支持 `main(config)` 覆写 | [使用说明](docs/script_support.zh-CN.md#clash-和-mihomo-配置覆写) |
+| **公开订阅发现** | 定时发现和核验订阅地址，去重后累计到本地文件 | [使用说明](docs/configuration.zh-CN.md#定时发现公开订阅) |
 | 🗂️ **分组排序** | 分组内机场优先级拖拽排序，控制订阅输出中的节点顺序 | [📖](docs/development.zh-CN.md) |
 | 📋 **订阅分享** | 多链接管理、过期策略、访问统计 | [📖](docs/features/subscription-share.zh-CN.md) |
 | 🌐 **Host 管理** | 域名映射、DNS 配置、CDN 优选 | [📖](docs/features/host.zh-CN.md) |

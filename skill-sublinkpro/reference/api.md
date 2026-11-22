@@ -207,7 +207,7 @@ Base: `/api/v1/subcription` (note the spelling — missing the second "s").
 ### Add Subscription
 **POST** `/subcription/add` — **form**
 - **Required:** `name` AND at least one of `nodeIds` (comma-separated node IDs), `groups` (comma-separated group names), or `airports` (comma-separated airport IDs).
-- Output template: `config` = a template **filename** (the `file` value from `GET /template/get`, e.g. `clash.yaml`); empty = raw node list.
+- Output template: pass `config` as a JSON-encoded form field. Use `clash` or `surge` with the corresponding local template path, such as `{"clash":"./template/clash.yaml"}`. `GET /template/get` supplies the filenames.
 - Other optional form fields (UpperCamel unless noted): `airports` (comma-separated airport IDs), `scripts` (comma-separated script IDs), `IPWhitelist`, `IPBlacklist`, `DelayTime`, `MinSpeed`, `CountryWhitelist`, `CountryBlacklist`, `NodeNameRule`, `NodeNamePreprocess`, `NodeNameWhitelist`, `NodeNameBlacklist`, `TagWhitelist`, `TagBlacklist`, `ProtocolWhitelist`, `ProtocolBlacklist`, `DeduplicationRule`, `RefreshUsageOnRequest`, `UpdateInterval`, `MaxFraudScore`, `OnlyResidential`, `OnlyNative`, `ResidentialType`, `IPType`, `QualityStatus`, `UnlockProvider`, `UnlockStatus`, `UnlockKeyword`, `UnlockRules`, `UnlockRuleMode`.
 - Name must be unique (duplicate → `订阅名称不能重复`).
 
@@ -322,7 +322,7 @@ Base: `/api/v1/shares`
 Base: `/api/v1/template`
 
 ### Get Templates
-**GET** `/template/get` (query: `?page=1&pageSize=20`) — returns each template's `file`, `text`, `category` (clash|surge), `ruleSource`, etc. The `file` value is what a subscription's `config` field references.
+**GET** `/template/get` (query: `?page=1&pageSize=20`) — returns each template's `file`, `text`, `category` (clash|surge), `ruleSource`, etc. Use `./template/<file>` as the corresponding path within the subscription's `config` JSON.
 
 ### Add Template
 **POST** `/template/add` — **form**: `filename`, `text`, `category`, `ruleSource`, `useProxy` (`true`/`false`), `proxyLink`, `enableIncludeAll` (`true`/`false`)

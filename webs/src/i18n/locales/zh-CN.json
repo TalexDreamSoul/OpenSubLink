@@ -3410,6 +3410,28 @@
       "title": "{{category}} 基础模板配置",
       "description": "基础模板用于规则转换时，当模板内容为空时自动填充的默认配置。修改后将影响所有使用默认模板的规则转换操作。"
     },
+    "profile": {
+      "title": "Mihomo 可视化配置",
+      "invalid": "请在 YAML 编辑器修正配置结构，再使用可视化配置。",
+      "dns": "启用 DNS",
+      "tun": "启用 TUN",
+      "groups": "代理组",
+      "selectedGroup": "选择代理组",
+      "addGroup": "添加代理组",
+      "newGroupName": "代理组 {{index}}",
+      "groupName": "名称",
+      "groupType": "类型",
+      "filter": "节点筛选正则",
+      "members": "固定成员，每行一个",
+      "includeProxies": "纳入订阅节点",
+      "rules": "分流规则",
+      "selectedRule": "选择规则",
+      "moveUp": "上移",
+      "moveDown": "下移",
+      "removeRule": "删除规则",
+      "newRule": "新规则，例如 DOMAIN-SUFFIX,example.com,DIRECT",
+      "addRule": "添加规则"
+    },
     "messages": {
       "loadFailed": "获取模板列表失败",
       "usageFailed": "获取模板使用情况失败",
@@ -3808,6 +3830,7 @@
       "clientType": "客户端类型",
       "returnNodes": "返回修改后的节点列表",
       "modifySubscription": "修改订阅内容",
+      "mihomoOverride": "Clash/Mihomo 支持 main(config) 覆写。粘贴完整脚本，在订阅中选用该脚本。",
       "input": "原始订阅内容",
       "returnContent": "返回修改后的订阅内容"
     }

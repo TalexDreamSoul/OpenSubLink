@@ -64,6 +64,12 @@ A `console` object is provided for logging to server logs.
 - `console.warn(message)`
 - `console.error(message)`
 
+## Clash and Mihomo configuration overrides
+
+Paste a synchronous `function main(config) { ...; return config; }` override into Scripts and select the script on a subscription. The function receives the complete profile as a JavaScript object after the service merges the template, nodes, and chain rules. Return a configuration object. If a script also defines `subMod`, the existing text-based entry point takes precedence.
+
+Use `mihomo-split.yaml` as a starting template for DNS, TUN, selector groups, and routing. Open **Visual Mihomo configuration** in the template editor to change those settings and reorder rules. Save the template and choose it in the subscription. The subscription URL serves the updated profile on its next request.
+
 ## Script Examples
 
 ### Deduplicate with Set

@@ -64,6 +64,12 @@ Goja 原生支持许多现代 JavaScript 特性，包括但不限于：
 - `console.warn(message)`
 - `console.error(message)`
 
+## Clash 和 Mihomo 配置覆写
+
+在脚本管理粘贴同步的 `function main(config) { ...; return config; }`，再在订阅中选用该脚本。服务合并模板、节点和链式规则后，把完整配置作为 JavaScript 对象传给脚本。脚本需返回配置对象。如果同一脚本也声明了 `subMod`，优先使用原有的文本入口。
+
+选用 `mihomo-split.yaml` 可以获得带 DNS、TUN、代理组和分流的基础配置。模板编辑器的「Mihomo 可视化配置」可调整这些设置和规则顺序。保存模板后在订阅中选择它，原订阅地址下次请求即可拉到更新的配置。
+
 ## 脚本示例
 
 ### 使用 Set 去重

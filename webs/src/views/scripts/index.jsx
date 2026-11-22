@@ -434,6 +434,9 @@ export default function ScriptList() {
                     sx={{ width: 150 }}
                   />
                 </Stack>
+                <Typography variant="body2" color="text.secondary">
+                  {t('scripts.template.mihomoOverride')}
+                </Typography>
                 <Stack direction="row" justifyContent="flex-end">
                   <Button variant="outlined" size="small" startIcon={<FullscreenIcon />} onClick={() => setEditorFullscreen(true)}>
                     {t('scripts.actions.fullscreen')}

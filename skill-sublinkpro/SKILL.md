@@ -1,11 +1,13 @@
 ---
 name: sublinkpro
-description: Manage SublinkPro proxy subscriptions via its REST API — add/query nodes, build and share subscriptions, manage airports, templates (incl. AI template editing), tags, and view dashboard stats. Use when the user wants to operate their SublinkPro instance.
+description: Discover public proxy subscription URLs through GitHub and Google, or manage SublinkPro nodes, subscriptions, shares, airports, templates, tags, and dashboard stats via its REST API.
 ---
 
 # SublinkPro AI Skill
 
 Control your SublinkPro instance through natural language. This skill lets an AI assistant call the SublinkPro API directly, so you can manage nodes, subscriptions, shares, airports, and templates without opening the web UI.
+
+For public subscription discovery, follow [Public subscription discovery](reference/public-subscription-discovery.md). Search and local collection do not require a SublinkPro instance or API key.
 
 ## Installation
 
@@ -80,6 +82,7 @@ When the user asks "what can you do", "help", or seems unsure where to start, pr
 - **Subscriptions** — build a new subscription, edit one, preview which nodes it will output, sort nodes, copy a subscription, delete one
 - **Sharing** — create a share link for a subscription, set expiration, list/refresh/disable share links, view access logs, fetch the actual subscription output
 - **Airports** — import an airport (URL + schedule), pull nodes now, list airports, edit/batch-edit, refresh usage, delete
+- **Find public subscription sources** — search GitHub and Google, verify publisher URLs, and append new candidates to a local file. See [the discovery workflow](reference/public-subscription-discovery.md).
 - **Templates** — list templates, edit a template by hand, or use **AI template editing** (describe a change in words → generate → review → apply)
 - **Chain proxy** — view/add chain-proxy rules on a subscription
 - **Tags** — list tags, create rules, apply tagging
@@ -204,7 +207,7 @@ Whenever you need one of these values, call its source first and present choices
 
 | Field (what the user picks) | Discovery call | What to show / how it maps |
 |---|---|---|
-| **Clash/Surge template** (subscription `config`) | `GET /api/v1/template/get` | List each `file` with its `category` (e.g. `clash.yaml` — clash). The chosen `file` string IS the `config` value. Empty = no template (raw node list). |
+| **Clash/Surge template** (subscription `config`) | `GET /api/v1/template/get` | List each `file` with its `category`. In the JSON-encoded `config` form field, set `clash` or `surge` to `./template/<file>` for the chosen local template. |
 | **Nodes** (`nodeIds`) | `GET /api/v1/nodes/selector` (paginated; supports `--query group=` / `country=` / `protocol=` filters) | Show `items[].ID` + `Name` (+ `Group`/`LinkCountry` for context). Selected IDs → comma-joined `nodeIds`. For "all matching", use `GET /api/v1/nodes/ids`. |
 | **Group(s)** (`groups`, or node `group`) | `GET /api/v1/nodes/groups` | Numbered list of group names. Selected → comma-joined. |
 | **Country filter** (`CountryWhitelist`/`CountryBlacklist`) | `GET /api/v1/nodes/countries` | List country codes present; user picks; comma-join. |
@@ -240,7 +243,7 @@ These describe how to *lead the user* through each task. Discovery calls (GET) n
 2. **Required — node selection:** ask "pick by group, or pick individual nodes?"
    - By group → `GET /api/v1/nodes/groups`, numbered list, multi-pick → `groups` (comma-joined).
    - By node → `GET /api/v1/nodes/selector` (offer to narrow with a group/country/protocol filter first since lists can be long), numbered list → `nodeIds` (comma-joined). At least one of the two is required.
-3. **Common optional — template (`config`):** "Which output template? I'll list your Clash/Surge templates." → `GET /api/v1/template/get`, list each `file`+`category`, the picked `file` becomes `config`. Offer "none" (raw nodes).
+3. **Common optional — template (`config`):** list each `file` and `category` from `GET /api/v1/template/get`. For full Clash/Mihomo output, include the selected template path in the JSON-encoded `config` form field, such as `{"clash":"./template/clash.yaml"}`. For node-only output, use a node-only client format.
 4. **Common optional — filters (one skippable step):** offer country / protocol filter (discover via the map), plus `DelayTime` (max latency ms), `MinSpeed` (min MB/s), `UpdateInterval` (hours). Describe each plainly; default all to off. Say "or just say 'skip' to use none."
 5. **Advanced:** mention dedup / node-name preprocessing / unlock rules exist; only collect if explicitly requested (see Field Tiers caution).
 6. **Confirm** the whole picture in plain words ("Subscription 'US-Servers': 12 nodes from group 'US', clash.yaml template, protocol filter vless+trojan, max delay 300ms, no other filters"), then `POST /api/v1/subcription/add` (`--form`).

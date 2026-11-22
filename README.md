@@ -64,6 +64,8 @@ English | [简体中文](README.zh-CN.md)
 | 🔗 **Chain proxy** | Native Dialer-Proxy support, visual configuration, IP quality based node selection | [📖](docs/features/chain-proxy.md) |
 | 🤖 **AI template editing** | Generate operation based previews from natural language, review read-only diffs, accept into the editor, then save normally | [📖](docs/features/template-ai.md) |
 | ✈️ **Airport management** | Multi format import, scheduled updates, traffic monitoring, node test summaries, one click full refresh | [📖](docs/features/airport.md) |
+| **Mihomo profile editing** | Edit DNS, TUN, proxy groups and routing order in the template editor. Supports `main(config)` overrides | [Guide](docs/script_support.md#clash-and-mihomo-configuration-overrides) |
+| **Public subscription discovery** | Scheduled discovery and verification. Append unique URLs to a local list | [Guide](docs/configuration.md#scheduled-public-subscription-discovery) |
 | 🗂️ **Group ordering** | Drag airport priority within a group to control node order in subscription output | [📖](docs/development.md) |
 | 📋 **Subscription sharing** | Multiple links, expiration policies, access statistics | [📖](docs/features/subscription-share.md) |
 | 🌐 **Host management** | Domain mappings, DNS configuration, CDN preferred IPs | [📖](docs/features/host.md) |

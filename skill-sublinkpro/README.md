@@ -56,6 +56,7 @@ You don't need to know the API or the parameters. Just say what you want — or 
 - "Show me all my subscriptions"
 - "Create a share link for the 'US Servers' subscription"
 - "Import nodes from this airport: https://..."
+- "Search GitHub and Google for public subscriptions and append the results to my list"
 - "Edit the 'ACL4SSR' template to block ads"
 - "Show dashboard stats"
 
@@ -63,6 +64,7 @@ You don't need to know the API or the parameters. Just say what you want — or 
 
 - **`SKILL.md`** — skill definition (the [Agent Skills](https://code.claude.com/docs/en/skills) open format, usable by any compatible AI agent)
 - **`reference/api.md`** — Complete API reference (every endpoint with curl examples)
+- **`reference/public-subscription-discovery.md`** — [Search for public subscription sources](reference/public-subscription-discovery.md) without an instance or API key
 - **`reference/deploy.md`** — Deployment command catalog (docker / compose / script)
 - **`scripts/sublink.py`** — *optional* Python helper that wraps auth, content-type, and error checking (only used if Python 3 is present; the API is normally called with curl)
 

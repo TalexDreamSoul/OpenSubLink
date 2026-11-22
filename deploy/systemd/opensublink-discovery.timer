@@ -1,0 +1,10 @@
+[Unit]
+Description=Run OpenSubLink public subscription discovery every six hours
+
+[Timer]
+OnCalendar=*-*-* 00,06,12,18:15:00
+Persistent=true
+RandomizedDelaySec=2min
+
+[Install]
+WantedBy=timers.target

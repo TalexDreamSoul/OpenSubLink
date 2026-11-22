@@ -55,6 +55,12 @@ Sign in and open **Application Settings -> Sub-Store** to enable the sidecar, se
 
 Keep the Sub-Store service on a private network or loopback address. SublinkPro does not embed or vendor Sub-Store code; the sidecar is a separate service boundary because Sub-Store is a Node project with GPL/AGPL licensing considerations. The one-shot parser converts proxy nodes and does not preserve full Clash strategy groups, rules, or DNS sections.
 
+## Scheduled public subscription discovery
+
+Run `python3 scripts/public_subscription_discovery.py --output /var/lib/opensublink-discovery/public-subscriptions.txt` to discover and validate public subscription URLs. It searches public GitHub repositories by default. Set both `GOOGLE_CSE_API_KEY` and `GOOGLE_CSE_ID` to add Google Programmable Search; `GITHUB_TOKEN` is optional. The output contains one verified URL per line and preserves previously collected URLs.
+
+On systemd hosts, install the script at `/usr/local/lib/opensublink/public_subscription_discovery.py`, install the service and timer from `deploy/systemd`, and enable `opensublink-discovery.timer`. Optional credentials go in `/etc/opensublink-discovery.env`. The service adds URLs to the file only. Select a source before adding it to a client subscription.
+
 ---
 
 ## Cloudflare Tunnel

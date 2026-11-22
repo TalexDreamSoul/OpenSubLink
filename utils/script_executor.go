@@ -5,11 +5,21 @@ import (
 	"fmt"
 
 	"github.com/dop251/goja"
+	"gopkg.in/yaml.v3"
 )
 
-// RunScript executes a JavaScript script with the given input and client type.
-// The script is expected to define a function `main(node, clientType)` that returns a string.
+// RunScript executes subMod(input, clientType) with the existing text contract.
 func RunScript(scriptContent string, input string, clientType string) (string, error) {
+	return runScript(scriptContent, input, clientType, false)
+}
+
+// RunClashScript also supports Mihomo/Clash overrides defining main(config).
+// subMod takes precedence and continues to receive and return raw YAML text.
+func RunClashScript(scriptContent string, input string) (string, error) {
+	return runScript(scriptContent, input, "clash", true)
+}
+
+func runScript(scriptContent string, input string, clientType string, allowClashMain bool) (string, error) {
 	vm := goja.New()
 
 	// Inject console object
@@ -32,19 +42,66 @@ func RunScript(scriptContent string, input string, clientType string) (string, e
 		return "", fmt.Errorf("script compilation error: %w", err)
 	}
 
-	// Get the main function
-	mainFn, ok := goja.AssertFunction(vm.Get("subMod"))
-	if !ok {
+	if subMod, ok := goja.AssertFunction(vm.Get("subMod")); ok {
+		result, err := subMod(goja.Undefined(), vm.ToValue(input), vm.ToValue(clientType))
+		if err != nil {
+			return "", fmt.Errorf("script execution error: %w", err)
+		}
+		return result.String(), nil
+	}
+	if !allowClashMain {
 		return "", fmt.Errorf("subMod function not found in script")
 	}
+	mainFn, ok := goja.AssertFunction(vm.Get("main"))
+	if !ok {
+		return "", fmt.Errorf("subMod or main function not found in script")
+	}
 
-	// Call the main function
-	result, err := mainFn(goja.Undefined(), vm.ToValue(input), vm.ToValue(clientType))
+	// Decode the complete configuration rather than a typed Clash schema so
+	// provider, DNS, proxy and other extension fields survive the override.
+	var config map[string]any
+	if err := yaml.Unmarshal([]byte(input), &config); err != nil {
+		return "", fmt.Errorf("failed to decode Clash configuration: %w", err)
+	}
+	if config == nil {
+		return "", fmt.Errorf("clash configuration must be an object")
+	}
+	configJSON, err := json.Marshal(config)
+	if err != nil {
+		return "", fmt.Errorf("failed to encode Clash configuration as JSON: %w", err)
+	}
+	// JSON.parse creates ordinary JS objects and arrays, allowing scripts to
+	// add/delete properties and use array operations without Go map/slice limits.
+	parseJSON, ok := goja.AssertFunction(vm.Get("JSON").ToObject(vm).Get("parse"))
+	if !ok {
+		return "", fmt.Errorf("JSON.parse function not available")
+	}
+	configValue, err := parseJSON(goja.Undefined(), vm.ToValue(string(configJSON)))
+	if err != nil {
+		return "", fmt.Errorf("failed to create Clash configuration object: %w", err)
+	}
+	result, err := mainFn(goja.Undefined(), configValue)
 	if err != nil {
 		return "", fmt.Errorf("script execution error: %w", err)
 	}
-
-	return result.String(), nil
+	resultConfig, ok := result.Export().(map[string]any)
+	if !ok || resultConfig == nil {
+		return "", fmt.Errorf("main must return a Clash configuration object")
+	}
+	resultJSON, err := json.Marshal(resultConfig)
+	if err != nil {
+		return "", fmt.Errorf("failed to encode script result: %w", err)
+	}
+	// Decode JSON through YAML to retain integral numbers as YAML integers.
+	var output map[string]any
+	if err := yaml.Unmarshal(resultJSON, &output); err != nil {
+		return "", fmt.Errorf("failed to decode script result: %w", err)
+	}
+	outputYAML, err := yaml.Marshal(output)
+	if err != nil {
+		return "", fmt.Errorf("failed to encode Clash configuration: %w", err)
+	}
+	return string(outputYAML), nil
 }
 
 // RunNodeFilterScript executes a JavaScript script to filter nodes.

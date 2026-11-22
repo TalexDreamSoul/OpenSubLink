@@ -791,7 +791,7 @@ func buildPreparedMihomoYAML(c *gin.Context, prepared preparedClientResponse) (m
 	}
 	// 执行脚本
 	for _, script := range sub.ScriptsWithSort {
-		res, err := utils.RunScript(script.Content, string(DecodeClash), "clash")
+		res, err := utils.RunClashScript(script.Content, string(DecodeClash))
 		if err != nil {
 			utils.Error("Script execution failed: %v", err)
 			continue

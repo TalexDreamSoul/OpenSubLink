@@ -55,6 +55,12 @@ SublinkPro 可以使用外部 Sub-Store 后端作为可选 sidecar，为订阅�
 
 请把 Sub-Store 服务限制在私有网络或 loopback 地址。SublinkPro 不内嵌、不复制、不 vendor Sub-Store 代码；由于 Sub-Store 是 Node 项目且存在 GPL/AGPL 许可边界，sidecar 是独立服务边界。当前一站式 parser 只转换代理节点，不保留完整 Clash 策略组、规则或 DNS 配置段。
 
+## 定时发现公开订阅
+
+执行 `python3 scripts/public_subscription_discovery.py --output /var/lib/opensublink-discovery/public-subscriptions.txt` 可发现并核验公开订阅地址。默认搜索 GitHub 公开仓库。配置 `GOOGLE_CSE_API_KEY` 和 `GOOGLE_CSE_ID` 两项可接入 Google Programmable Search，`GITHUB_TOKEN` 可选。输出一行一个已核验的 URL，原有地址会保留。
+
+在 systemd 主机上，将脚本安装到 `/usr/local/lib/opensublink/public_subscription_discovery.py`，再安装 `deploy/systemd` 下的服务和计时器，启用 `opensublink-discovery.timer`。可选凭据写入 `/etc/opensublink-discovery.env`。采集任务写入地址文件，选定来源后可从机场管理导入订阅。
+
 ---
 
 ## Cloudflare Tunnel

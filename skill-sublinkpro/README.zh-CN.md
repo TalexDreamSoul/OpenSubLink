@@ -61,6 +61,7 @@
 - "列出我所有的订阅"
 - "创建一个分享链接"
 - "导入一个机场"
+- “去 GitHub 和 Google 找公益订阅，把结果累计到指定文件”
 - "用 AI 帮我改改 'ACL4SSR' 模板，屏蔽广告"
 - "显示仪表盘统计"
 
@@ -70,6 +71,7 @@
 
 - **`SKILL.md`** — 技能定义（[Agent Skills](https://code.claude.com/docs/en/skills) 开放格式，任何兼容的 AI agent 均可使用）
 - **`reference/api.md`** — 完整 API 参考（每个接口都标注了 curl 调用方式）
+- **`reference/public-subscription-discovery.md`** — [公开订阅源搜索与累计](reference/public-subscription-discovery.md)，搜索和写入本地清单无需实例或 API Key
 - **`reference/deploy.md`** — 部署命令目录（docker / compose / 脚本）
 - **`scripts/sublink.py`** — 可选的 Python 助手脚本（自动处理鉴权、内容类型、错误校验）；仅在已安装 Python 3 时使用
 
