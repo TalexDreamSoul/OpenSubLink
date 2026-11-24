@@ -14,6 +14,7 @@ const NodeMapPage = Loadable(lazy(() => import('views/dashboard/NodeMap')));
 const NodeList = Loadable(lazy(() => import('views/nodes')));
 const SubscriptionList = Loadable(lazy(() => import('views/subscriptions')));
 const TemplateList = Loadable(lazy(() => import('views/templates')));
+const Files = Loadable(lazy(() => import('views/files')));
 const ScriptList = Loadable(lazy(() => import('views/scripts')));
 const AccessKeyList = Loadable(lazy(() => import('views/accesskeys')));
 const UserSettings = Loadable(lazy(() => import('views/settings')));
@@ -76,6 +77,10 @@ const MainRoutes = {
         {
           path: 'templates',
           element: <TemplateList />
+        },
+        {
+          path: 'files',
+          element: <Files />
         },
         {
           path: 'tags',

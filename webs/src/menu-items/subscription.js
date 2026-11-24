@@ -2,6 +2,7 @@ import {
   IconNetwork,
   IconList,
   IconTemplate,
+  IconFile,
   IconScript,
   IconKey,
   IconSettings,
@@ -65,6 +66,15 @@ const subscription = {
       type: 'item',
       url: '/subscription/templates',
       icon: IconTemplate,
+      breadcrumbs: true
+    },
+    {
+      id: 'files',
+      title: 'File Sharing',
+      titleKey: 'navigation.items.files',
+      type: 'item',
+      url: '/subscription/files',
+      icon: IconFile,
       breadcrumbs: true
     },
     {

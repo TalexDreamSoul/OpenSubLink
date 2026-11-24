@@ -16,6 +16,7 @@ import (
 	"sublink/cache"
 	"sublink/config"
 	"sublink/database"
+	"sublink/middlewares"
 	"sublink/models"
 	"sublink/node/protocol"
 	"sublink/routers"
@@ -651,6 +652,8 @@ func Run() {
 	routers.GeoIP(r)
 	routers.Host(r)
 	routers.Share(r)
+	files := r.Group("/api/v1/files", middlewares.AuthToken, middlewares.DemoModeRestrict)
+	api.Files(files, r)
 	routers.Airport(r)
 	routers.GroupSort(r)
 	routers.NodeCheck(r)

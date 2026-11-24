@@ -57,6 +57,14 @@ services:
 
 Keep the Sub-Store service inside the Compose network and do not publish its port unless you protect it separately. After both containers start, sign in and open **Application Settings -> Sub-Store** to enable the sidecar, set the base URL such as `http://substore:3000`, choose allowed output targets, and test the connection. Sub-Store integration is managed from that page, not through environment variables.
 
+#### File sharing with Sub-Store
+
+Use the Sub-Store frontend gateway, which serves token-protected links at `/share/file/…`. Set the Sub-Store address in OpenSubLink to that gateway with its private backend prefix, for example `http://substore:3001/<private-backend-prefix>`. Keep this URL private and the gateway on the internal network. Configure a persistent Sub-Store data volume for files and share records.
+
+Open **Subscription Management → File Sharing** to upload a UTF-8 text file, create a seven-day link, or manage existing Sub-Store links. Downloads require only the share URL. The upload request, including JSON encoding, must fit within 1 MiB.
+
+#### Cloudflare Tunnel
+
 To expose the service through Cloudflare Tunnel, start the instance first, then open **Application Settings -> Cloudflare Tunnel**, enter the token, and start it. When auto connect is enabled, the Tunnel connects when the service starts. See [Cloudflare Tunnel remote access](features/cloudflare-tunnel.md) for the full flow.
 
 The official Docker image includes `cloudflared`. Non Docker deployments need `cloudflared` installed first according to Cloudflare's official documentation.

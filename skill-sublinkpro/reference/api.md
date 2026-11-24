@@ -749,6 +749,8 @@ Base: `/api/v1/settings` (write bodies are JSON unless noted; most writes are de
 
 **Sub-Store:** **GET** `/settings/substore` · **POST** `/settings/substore` · **POST** `/settings/substore/test`
 
+**Sub-Store files:** `GET /files` lists files, `POST /files` uploads `{name, content}`, and `DELETE /files/:name` deletes a file. `GET /files/:name/shares` lists links, `POST /files/:name/shares` issues a seven-day token, and `DELETE /files/:name/shares/:token` revokes it. The public download is `GET /file-download/:name?token=…&filename=…` under the same `/api/v1` prefix.
+
 ### Proxy gateway (SOCKS5 / HTTP / Mixed)
 
 All SOCKS5 endpoints require an authenticated administrator. Destructive `POST`/`DELETE` operations are restricted in demo mode.

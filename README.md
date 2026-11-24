@@ -68,6 +68,7 @@ English | [简体中文](README.zh-CN.md)
 | **Public subscription discovery** | Scheduled discovery and verification. Append unique URLs to a local list | [Guide](docs/configuration.md#scheduled-public-subscription-discovery) |
 | 🗂️ **Group ordering** | Drag airport priority within a group to control node order in subscription output | [📖](docs/development.md) |
 | 📋 **Subscription sharing** | Multiple links, expiration policies, access statistics | [📖](docs/features/subscription-share.md) |
+| **File sharing** | Upload text files and create revocable download links with Sub-Store | [Setup](docs/installation.md#file-sharing-with-sub-store) |
 | 🌐 **Host management** | Domain mappings, DNS configuration, CDN preferred IPs | [📖](docs/features/host.md) |
 | ☁️ **Cloudflare Tunnel** | Expose the admin UI without a public IP, with cloudflared managed from the page | [📖](docs/features/cloudflare-tunnel.md) |
 | 💾 **WebDAV backup** | Encrypt WebDAV credentials, upload system backups on demand or by cron, list remote ZIP files, and restore from the page | [📖](docs/features/backup.md) |

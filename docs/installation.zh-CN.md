@@ -57,6 +57,14 @@ services:
 
 建议把 Sub-Store 服务仅保留在 Compose 内部网络中，不要直接暴露端口。两个容器启动后，请登录后台进入 **用户中心 -> Sub-Store**，启用 sidecar、填写类似 `http://substore:3000` 的 Base URL、选择允许的输出目标并测试连接。Sub-Store 集成只通过该页面管理，不使用环境变量。
 
+#### 通过 Sub-Store 分享文件
+
+使用提供 `/share/file/…` 令牌下载路由的 Sub-Store 前端网关。在 OpenSubLink 的 Sub-Store 设置中填写带私有路径前缀的网关地址，例如 `http://substore:3001/<私有后端前缀>`。请将网关放在内网，保密后端地址，并为 Sub-Store 配置持久化数据卷来保存文件和分享记录。
+
+打开「订阅管理 → 文件分享」，上传 UTF-8 文本文件、生成七天有效链接或管理现有 Sub-Store 分享。接收方可凭链接直接下载。上传请求含 JSON 编码最多 1 MiB。
+
+#### Cloudflare Tunnel
+
 如需通过 Cloudflare Tunnel 暴露服务，可在启动后进入 **用户中心 -> Cloudflare Tunnel** 填写 token 并启动；启用自动连接后会随服务启动连接 Tunnel。完整步骤见 [Cloudflare Tunnel 远程访问](features/cloudflare-tunnel.zh-CN.md)。
 
 官方 Docker 镜像已内置 `cloudflared`，非 Docker 部署则需要先按 Cloudflare 官方文档安装 `cloudflared`。

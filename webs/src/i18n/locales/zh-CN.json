@@ -106,6 +106,7 @@
       "nodeCheck": "检测中心",
       "subscriptions": "订阅列表",
       "templates": "模板管理",
+      "files": "文件分享",
       "tags": "标签管理",
       "scripts": "脚本列表",
       "accessKeys": "API 密钥",
@@ -3354,6 +3355,25 @@
         }
       }
     }
+  },
+  "fileSharing": {
+    "upload": "上传文件",
+    "uploading": "正在上传…",
+    "uploadHint": "支持 YAML、JSON 等 UTF-8 文本文件。上传请求含编码最多 1 MiB。",
+    "tooLarge": "该文件超出 1 MiB 上传限制。",
+    "invalidText": "请选择 UTF-8 文本文件。",
+    "empty": "暂无文件。",
+    "configure": "请在设置中填写带保护路径的 Sub-Store 后端地址以启用文件分享。",
+    "actionFailed": "文件分享操作失败，请重试。",
+    "manageLinks": "管理链接",
+    "closeLinks": "收起链接",
+    "createLink": "生成 7 天分享链接",
+    "link": "下载链接",
+    "copy": "复制链接",
+    "copied": "已复制",
+    "expired": "已过期",
+    "noExpiry": "无到期时间",
+    "revoke": "撤销链接"
   },
   "templates": {
     "title": "模板管理",

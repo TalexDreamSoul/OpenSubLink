@@ -68,6 +68,7 @@
 | **公开订阅发现** | 定时发现和核验订阅地址，去重后累计到本地文件 | [使用说明](docs/configuration.zh-CN.md#定时发现公开订阅) |
 | 🗂️ **分组排序** | 分组内机场优先级拖拽排序，控制订阅输出中的节点顺序 | [📖](docs/development.zh-CN.md) |
 | 📋 **订阅分享** | 多链接管理、过期策略、访问统计 | [📖](docs/features/subscription-share.zh-CN.md) |
+| **文件分享** | 通过 Sub-Store 上传文本文件并生成可撤销的下载链接 | [配置说明](docs/installation.zh-CN.md#通过-sub-store-分享文件) |
 | 🌐 **Host 管理** | 域名映射、DNS 配置、CDN 优选 | [📖](docs/features/host.zh-CN.md) |
 | ☁️ **Cloudflare Tunnel** | 无公网 IP 暴露管理界面、页面托管 cloudflared | [📖](docs/features/cloudflare-tunnel.zh-CN.md) |
 | 💾 **WebDAV 备份** | 加密保存 WebDAV 凭据，支持手动或定时上传系统备份、查看远程 ZIP 并从页面恢复 | [📖](docs/features/backup.zh-CN.md) |

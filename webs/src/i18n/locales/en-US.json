@@ -106,6 +106,7 @@
       "nodeCheck": "Detection center",
       "subscriptions": "Subscriptions",
       "templates": "Templates",
+      "files": "File Sharing",
       "tags": "Tags",
       "scripts": "Scripts",
       "accessKeys": "API Keys",
@@ -3354,6 +3355,25 @@
         }
       }
     }
+  },
+  "fileSharing": {
+    "upload": "Upload file",
+    "uploading": "Uploading…",
+    "uploadHint": "Upload a UTF-8 text file such as YAML or JSON. The upload limit is 1 MiB including encoding.",
+    "tooLarge": "This file exceeds the 1 MiB upload limit.",
+    "invalidText": "Choose a UTF-8 text file.",
+    "empty": "No files yet.",
+    "configure": "Configure Sub-Store with a protected backend URL in Settings to enable file sharing.",
+    "actionFailed": "The file sharing action failed. Try again.",
+    "manageLinks": "Manage links",
+    "closeLinks": "Close links",
+    "createLink": "Create 7-day link",
+    "link": "Download link",
+    "copy": "Copy link",
+    "copied": "Copied",
+    "expired": "Expired",
+    "noExpiry": "No expiry date",
+    "revoke": "Revoke link"
   },
   "templates": {
     "title": "Template Management",
