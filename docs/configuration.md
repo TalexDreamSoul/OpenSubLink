@@ -57,9 +57,11 @@ Keep the Sub-Store service on a private network or loopback address. SublinkPro 
 
 ## Scheduled public subscription discovery
 
-Run `python3 scripts/public_subscription_discovery.py --output /var/lib/opensublink-discovery/public-subscriptions.txt` to discover and validate public subscription URLs. It searches public GitHub repositories by default. Set both `GOOGLE_CSE_API_KEY` and `GOOGLE_CSE_ID` to add Google Programmable Search; `GITHUB_TOKEN` is optional. The output contains one verified URL per line and preserves previously collected URLs.
+Run `python3 scripts/public_subscription_discovery.py --output /var/lib/opensublink-discovery/public-subscriptions.txt` to discover and validate public subscription URLs. It searches public GitHub repositories by default and only accepts responses that parse as Clash/Mihomo YAML with a non-empty `proxies:` list or as a raw/Base64 proxy URI list (rejecting Markdown, README, HTML, and prose documents). Set both `GOOGLE_CSE_API_KEY` and `GOOGLE_CSE_ID` to add Google Programmable Search; `GITHUB_TOKEN` is optional. The output contains one verified URL per line and preserves previously collected URLs.
 
-On systemd hosts, install the script at `/usr/local/lib/opensublink/public_subscription_discovery.py`, install the service and timer from `deploy/systemd`, and enable `opensublink-discovery.timer`. Optional credentials go in `/etc/opensublink-discovery.env`. The service adds URLs to the file only. Select a source before adding it to a client subscription.
+To idempotently auto-import verified public feeds into OpenSubLink as airports (skipping URLs that already exist), configure `OPENSUBLINK_BASE_URL` (e.g. `http://127.0.0.1:8000`) and `OPENSUBLINK_API_KEY` (an `X-API-Key` created in **Settings -> Access Keys**). Optional settings: `OPENSUBLINK_IMPORT_GROUP` (default `PublicDiscovery`), `OPENSUBLINK_IMPORT_CRON` (default `0 */6 * * *`), `OPENSUBLINK_IMPORT_ENABLED` (default `true`, which also triggers an immediate pull on creation), `OPENSUBLINK_IMPORT_DETECT_PROFILE_ID` (`> 0` enables post-pull node checks), and `OPENSUBLINK_IMPORT_PULL_EXISTING` (default `false`).
+
+On systemd hosts, install the script at `/usr/local/lib/opensublink/public_subscription_discovery.py`, install the service and timer from `deploy/systemd`, and enable `opensublink-discovery.timer`. Store optional credentials in `/etc/opensublink-discovery.env` with mode `0600`. When `OPENSUBLINK_BASE_URL` and `OPENSUBLINK_API_KEY` are unset, the service writes verified URLs to the output file only.
 
 ---
 

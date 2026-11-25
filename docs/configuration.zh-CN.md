@@ -57,9 +57,11 @@ SublinkPro 可以使用外部 Sub-Store 后端作为可选 sidecar，为订阅�
 
 ## 定时发现公开订阅
 
-执行 `python3 scripts/public_subscription_discovery.py --output /var/lib/opensublink-discovery/public-subscriptions.txt` 可发现并核验公开订阅地址。默认搜索 GitHub 公开仓库。配置 `GOOGLE_CSE_API_KEY` 和 `GOOGLE_CSE_ID` 两项可接入 Google Programmable Search，`GITHUB_TOKEN` 可选。输出一行一个已核验的 URL，原有地址会保留。
+执行 `python3 scripts/public_subscription_discovery.py --output /var/lib/opensublink-discovery/public-subscriptions.txt` 可发现并核验公开订阅地址。默认搜索 GitHub 公开仓库，仅接受包含非空有效 `proxies:` 列表的 Clash/Mihomo YAML 或纯文本/Base64 代理 URI 列表（自动拒绝 Markdown、README、HTML 与说明性正文）。配置 `GOOGLE_CSE_API_KEY` 和 `GOOGLE_CSE_ID` 两项可接入 Google Programmable Search，`GITHUB_TOKEN` 可选。输出一行一个已核验的 URL，原有地址会保留。
 
-在 systemd 主机上，将脚本安装到 `/usr/local/lib/opensublink/public_subscription_discovery.py`，再安装 `deploy/systemd` 下的服务和计时器，启用 `opensublink-discovery.timer`。可选凭据写入 `/etc/opensublink-discovery.env`。采集任务写入地址文件，选定来源后可从机场管理导入订阅。
+如需将已核验的公开订阅幂等自动导入 OpenSubLink 机场管理（按 URL 查重跳过已有项），请通过环境变量配置 `OPENSUBLINK_BASE_URL`（如 `http://127.0.0.1:8000`）和 `OPENSUBLINK_API_KEY`（在后台 **用户中心 -> Access Keys** 生成的 `X-API-Key`）。可选变量包括：`OPENSUBLINK_IMPORT_GROUP`（默认 `PublicDiscovery`）、`OPENSUBLINK_IMPORT_CRON`（默认 `0 */6 * * *`）、`OPENSUBLINK_IMPORT_ENABLED`（默认 `true`，新增时自动触发首次拉取）、`OPENSUBLINK_IMPORT_DETECT_PROFILE_ID`（大于 `0` 时开启拉取后自动节点检测）以及 `OPENSUBLINK_IMPORT_PULL_EXISTING`（默认 `false`）。
+
+在 systemd 主机上，将脚本安装到 `/usr/local/lib/opensublink/public_subscription_discovery.py`，再安装 `deploy/systemd` 下的服务和计时器，启用 `opensublink-discovery.timer`。可选凭据写入 `/etc/opensublink-discovery.env` 并设置权限 `0600`。未配置 `OPENSUBLINK_BASE_URL` 和 `OPENSUBLINK_API_KEY` 时，采集任务仅写入地址文件。
 
 ---
 
